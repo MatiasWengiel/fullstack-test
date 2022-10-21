@@ -2,6 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
+import { Container, Row, Col } from 'react-bootstrap';
+import Comment from './components/Comment';
+import AddCommentForm from './components/AddCommentForm';
+
 
 function App() {
 
@@ -17,12 +21,18 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello!</h1>
-        <p>{message}</p>
-      </header>
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <Comment user="John" text="This is my text" sent="10/21/22 at 3 30PM" />
+        </Col>
+      </Row>
+      <Row>
+        <Col><AddCommentForm /></Col>
+      </Row>
+    </Container>
+
+
   );
 }
 
