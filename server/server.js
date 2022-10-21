@@ -28,10 +28,9 @@ const connection = async () => {
 
 connection();
 
-// To test this route go to http://localhost:8080/api/example
-const apiRoutes = require('./routes/api/example');
+const apiComments = require('./routes/api/comments');
 
-app.use('/api/example', apiRoutes);
+app.use('/api/comments', apiComments);
 
 app.get('/', (req, res) => {
   res.send("Hey! How are you?");
