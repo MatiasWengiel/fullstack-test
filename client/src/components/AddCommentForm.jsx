@@ -3,32 +3,38 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 export default function AddCommentForm(props) {
+  const { updateCommentsList } = props;
+
   const [commentData, setCommentData] = useState({
     author: "",
     commentText: "",
   });
+
   const handleChange = (event) => {
     event.preventDefault();
     setCommentData({ ...commentData, [event.target.name]: event.target.value });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const currentTime = new Date().toString();
+
     return axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/api/comments`,
         {
-          ...commentData,
+          author: commentData.author || "Anonymous User",
+          commentText: commentData.commentText,
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
       .then(() => {
-        const currentTime = new Date();
-        props.updateCommentsList({
+        updateCommentsList({
           //Use time as temporary ID, as it will be unique between comments
-          _id: currentTime.toString(),
+          _id: currentTime,
           author: commentData.author,
           commentText: commentData.commentText,
-          date: currentTime.toString(),
+          date: currentTime,
         });
         setCommentData({ author: "", commentText: "" });
       })
