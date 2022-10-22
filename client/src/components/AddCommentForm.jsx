@@ -4,7 +4,9 @@ import axios from "axios";
 import useFormData from "../hooks/useFormData";
 
 export default function AddCommentForm(props) {
-  const { handleChange, commentData, handleSubmit } = useFormData();
+  const { handleChange, commentData, handleSubmit } = useFormData(
+    props.updateCommentsList
+  );
 
   return (
     <Form>
