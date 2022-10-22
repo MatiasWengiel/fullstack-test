@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const commentsSchema = new Schema({
   author: { type: String, default: "Anonymous User" },
-  comment: String,
+  commentText: String,
   date: { type: Date, default: Date.now }
 })
 
