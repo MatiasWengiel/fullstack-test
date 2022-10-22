@@ -10,7 +10,6 @@ export default function AddCommentForm(props) {
   const handleChange = (event) => {
     event.preventDefault();
     setCommentData({ ...commentData, [event.target.name]: event.target.value });
-    console.log(commentData);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +22,14 @@ export default function AddCommentForm(props) {
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
       .then(() => {
+        const currentTime = new Date();
+        props.updateCommentsList({
+          //Use time as temporary ID, as it will be unique between comments
+          _id: currentTime.toString(),
+          author: commentData.author,
+          commentText: commentData.commentText,
+          date: currentTime.toString(),
+        });
         setCommentData({ author: "", commentText: "" });
       })
       .catch((error) => console.log(error));
