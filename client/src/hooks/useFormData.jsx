@@ -1,9 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import useAppData from "./useAppData";
 
-export default function useFormData() {
-  const { updateCommentsList } = useAppData();
+export default function useFormData(updateCommentsList) {
   const [commentData, setCommentData] = useState({
     author: "",
     commentText: "",
