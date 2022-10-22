@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', (req, res) => {
   createComment(req.body)
+  res.send("OK")
 })
 
 module.exports = router;
