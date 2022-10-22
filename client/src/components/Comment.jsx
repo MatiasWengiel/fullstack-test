@@ -7,7 +7,7 @@ export default function Comment(props) {
       <Card.Body style={{ width: "80%", margin: "auto" }}>
         <Card.Text>{text}</Card.Text>
       </Card.Body>
-      <Card.Footer>Sent at: {sent}</Card.Footer>
+      <Card.Footer>Submitted at: {sent}</Card.Footer>
     </Card>
   );
 }
