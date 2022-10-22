@@ -1,4 +1,5 @@
 const express = require('express');
+const { createComment } = require('../../db/dbQueries');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -8,8 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body)
-  res.send("good job")
+  createComment(req.body)
 })
 
 module.exports = router;
