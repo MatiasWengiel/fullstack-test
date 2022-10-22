@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap';
 import Comment from './components/Comment';
 import AddCommentForm from './components/AddCommentForm';
+import NoComment from './components/NoComment';
 
 
 function App() {
@@ -30,11 +31,13 @@ function App() {
     <Container>
       <Row>
         <Col>
-          {commentsList}
+          {commentsList.length ? commentsList : <NoComment />}
         </Col>
       </Row>
       <Row>
-        <Col><AddCommentForm updateCommentsList={updateCommentsList} /></Col>
+        <Col>
+          <AddCommentForm updateCommentsList={updateCommentsList} />
+        </Col>
       </Row>
     </Container>
 
