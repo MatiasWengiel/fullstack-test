@@ -1,11 +1,15 @@
 const express = require('express');
-const { createComment } = require('../../db/dbQueries');
+const { createComment, getComments } = require('../../db/dbQueries');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({
-    text: "This is a sample comment"
-  })
+router.get('/', async (req, res) => {
+  try {
+    const comments = await getComments()
+    res.json(comments)
+  } catch (error) {
+    console.log(error)
+  }
+
 });
 
 router.post('/', (req, res) => {
