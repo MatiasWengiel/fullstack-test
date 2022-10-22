@@ -32,7 +32,7 @@ export default function AddCommentForm(props) {
         updateCommentsList({
           //Use time as temporary ID, as it will be unique between comments
           _id: currentTime,
-          author: commentData.author,
+          author: commentData.author || "Anonymous User",
           commentText: commentData.commentText,
           date: currentTime,
         });
