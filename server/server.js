@@ -32,10 +32,6 @@ const apiComments = require('./routes/api/comments');
 
 app.use('/api/comments', apiComments);
 
-app.get('/', (req, res) => {
-  res.send("Hey! How are you?");
-});
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
