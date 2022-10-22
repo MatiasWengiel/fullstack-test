@@ -11,11 +11,17 @@ export default function AddCommentForm(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}/api/comments`, {
-        commentData,
+    return axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/api/comments`,
+        {
+          commentData,
+        },
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      )
+      .then(() => {
+        setCommentData({ name: "", commentText: "" });
       })
-      .then(() => setCommentData({ name: "", commentText: "" }))
       .catch((error) => console.log(error));
   };
 

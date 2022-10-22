@@ -1,8 +1,5 @@
 const express = require('express');
-// const { commentsSchema } = require('../../db/schema');
 const router = express.Router();
-
-// const Comment = mongoose.model("Comment", commentsSchema)
 
 router.get('/', (req, res) => {
   res.json({
@@ -12,6 +9,8 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log(req.body)
+  res.send("good job")
 })
 
 module.exports = router;
+
