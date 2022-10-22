@@ -3,7 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 export default function AddCommentForm(props) {
-  const [commentData, setCommentData] = useState({ name: "", commentText: "" });
+  const [commentData, setCommentData] = useState({
+    author: "",
+    commentText: "",
+  });
   const handleChange = (event) => {
     event.preventDefault();
     setCommentData({ ...commentData, [event.target.name]: event.target.value });
@@ -15,12 +18,12 @@ export default function AddCommentForm(props) {
       .post(
         `${process.env.REACT_APP_BASE_URL}/api/comments`,
         {
-          commentData,
+          ...commentData,
         },
         { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
       )
       .then(() => {
-        setCommentData({ name: "", commentText: "" });
+        setCommentData({ author: "", commentText: "" });
       })
       .catch((error) => console.log(error));
   };
@@ -31,9 +34,9 @@ export default function AddCommentForm(props) {
         <Form.Label>Want to reply? Add your comment here!</Form.Label>
         <Form.Control
           type="text"
-          name="name"
+          name="author"
           placeholder="What is your name?"
-          value={commentData.name}
+          value={commentData.author}
           onChange={handleChange}
         />
         <Form.Control

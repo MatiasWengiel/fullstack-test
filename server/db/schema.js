@@ -1,8 +1,12 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-export const commentsSchema = new Schema({
+const commentsSchema = new Schema({
   author: { type: String, default: "Anonymous User" },
-  comment: String,
+  commentText: String,
   date: { type: Date, default: Date.now }
 })
+
+const Comment = mongoose.model("Comment", commentsSchema);
+
+module.exports = Comment

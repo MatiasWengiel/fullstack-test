@@ -8,23 +8,23 @@ import AddCommentForm from './components/AddCommentForm';
 
 
 function App() {
-
-  const [message, setMessage] = useState('');
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BASE_URL}/api/comments`)
-      .then((data) => {
-        console.log(data)
-        setMessage(data.data.text)
+      .then((res) => {
+        setComments(res.data)
       }).catch(error => console.log(error))
   }, [])
 
-
+  const commentsList = comments.map(comment => {
+    return <Comment key={comment.id} author={comment.author} text={comment.commentText} sent={comment.date} />
+  })
   return (
     <Container>
       <Row>
         <Col>
-          <Comment user="John" text="This is my text" sent="10/21/22 at 3 30PM" />
+          {commentsList}
         </Col>
       </Row>
       <Row>
