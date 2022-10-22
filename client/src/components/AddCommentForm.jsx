@@ -9,7 +9,7 @@ export default function AddCommentForm(props) {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="commentForm">
         <Form.Label>Want to reply? Add your comment here!</Form.Label>
         <Form.Control
@@ -25,9 +25,10 @@ export default function AddCommentForm(props) {
           value={commentData.commentText}
           placeholder="What would you like to say?"
           onChange={handleChange}
+          required
         />
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
+      <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
