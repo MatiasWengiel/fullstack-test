@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   const commentsList = comments.map(comment => {
-    return <Comment key={comment._id} author={comment.author} text={comment.commentText} sent={comment.date} />
+    return <Comment key={comment._id} author={comment.author} text={comment.commentText} sent={new Date(comment.date).toString()} />
   })
 
   //Adds the latest comment from the user without needing another call to the back end. 
