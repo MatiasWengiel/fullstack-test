@@ -15,19 +15,26 @@ export default function useFormData(updateCommentsList) {
     });
   };
 
+  const updateDB = () => {
+    return axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/comments`,
+      {
+        author: commentData.author || "Anonymous User",
+        commentText: commentData.commentText,
+      },
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const currentTime = new Date().toString();
-
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}/api/comments`,
-        {
-          author: commentData.author || "Anonymous User",
-          commentText: commentData.commentText,
-        },
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-      )
+    const form = event.currentTarget;
+    if (form.checkValidity === false) {
+      event.stopPropagation();
+      return;
+    }
+    updateDB()
       .then(() => {
         updateCommentsList({
           //Use time as temporary ID, as it will be unique between comments
