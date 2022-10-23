@@ -1,54 +1,28 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import AddCommentForm from './components/AddCommentForm';
 import NoComment from './components/NoComment';
-import axios from 'axios'
-import Comment from './components/Comment';
+import CommentsThread from './components/CommentsThread';
+import useAppData from './hooks/useAppData';
 
 
 function App() {
-  const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/comments`)
-      .then((res) => {
-        setComments(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const { checkForComments } = useAppData()
 
-
-  const commentsList = comments.map((comment) => {
-    return (
-      <Comment
-        key={comment._id}
-        author={comment.author}
-        text={comment.commentText}
-        sent={new Date(comment.date)}
-        // Adds a random image to act as a temporary "avatar". Must be fetched at this stage, or the browser cache leads to all pictures being the same
-        image={<Image roundedCircle src={`https://loremflickr.com/100/100/cat?random=${comment._id}`} />}
-      />
-    );
-  });
-
-  //Adds the latest comment from the user without needing another call to the back end.
-  const updateCommentsList = (newComment) => {
-    setComments([...comments, newComment]);
-  };
 
   return (
     <Container>
-
       <Row>
         <Col>
-          {commentsList.length ? commentsList : <NoComment />}
+          {/* Only renders CommentsThread if it has contents */}
+          {checkForComments ? <CommentsThread /> : <NoComment />}
         </Col>
       </Row>
       <Row>
         <Col>
-          <AddCommentForm updateCommentsList={updateCommentsList} />
+          <AddCommentForm />
         </Col>
       </Row>
     </Container>
