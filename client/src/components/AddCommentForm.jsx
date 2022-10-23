@@ -5,8 +5,7 @@ import useFormData from "../hooks/useFormData";
 import axios from "axios";
 
 export default function AddCommentForm(props) {
-  // const { handleSubmit } = useFormData();
-  const { state, setCommentData, updateCommentsList } = useAppData();
+  const { updateCommentsList } = props;
 
   const [tempComment, setTempComment] = useState({
     author: "",
@@ -20,7 +19,6 @@ export default function AddCommentForm(props) {
   const handleTextChange = (event) => {
     event.preventDefault();
     setTempComment({ ...tempComment, commentText: event.target.value });
-    setCommentData(tempComment);
   };
 
   const updateDB = () => {

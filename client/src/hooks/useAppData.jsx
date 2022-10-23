@@ -18,15 +18,10 @@ export default function useAppData() {
     switch (action.type) {
       case SET_COMMENTS:
         return { ...state, comments: action.comments };
-      case SET_COMMENT_DATA:
-        return {
-          ...state,
-          commentData: action.commentData,
-        };
       case UPDATE_COMMENTS:
         return {
           ...state,
-          comments: action.newComment,
+          comments: [...state.comments, action.newComment],
         };
       default:
         throw new Error(`Tried to reduce with wrong action: ${action.type}`);
@@ -46,19 +41,17 @@ export default function useAppData() {
       .catch((error) => console.log(error));
   }, []);
 
-  const setCommentData = (commentData) =>
-    dispatch({ type: SET_COMMENT_DATA, commentData });
-
   //Adds the latest comment from the user without needing another call to the back end.
-  const updateCommentsList = (newComment) =>
+  const updateCommentsList = (newComment) => {
+    console.log(newComment);
     dispatch({ type: UPDATE_COMMENTS, newComment });
+  };
 
   const checkForComments = state.comments.length > 0;
 
   return {
     updateCommentsList,
     checkForComments,
-    setCommentData,
     state,
   };
 }
