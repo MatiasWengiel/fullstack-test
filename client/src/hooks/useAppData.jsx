@@ -26,10 +26,7 @@ export default function useAppData() {
       case UPDATE_COMMENTS:
         return {
           ...state,
-          comments: {
-            ...state.comments,
-            [action.newComment.author]: action.newComment.commentText,
-          },
+          comments: action.newComment,
         };
       default:
         throw new Error(`Tried to reduce with wrong action: ${action.type}`);
