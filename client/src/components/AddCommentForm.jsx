@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import axios from "axios";
 import useFormData from "../hooks/useFormData";
 
 export default function AddCommentForm(props) {
