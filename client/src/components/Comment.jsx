@@ -1,5 +1,4 @@
 import { Card } from "react-bootstrap";
-import axios from "axios";
 
 export default function Comment(props) {
   const { author, text, sent, image } = props;
@@ -9,10 +8,10 @@ export default function Comment(props) {
   const timeStamp = `Submitted on ${date} at ${time}`;
 
   return (
-    <Card bg="Light" className="mx-auto my-3 w-80">
+    <Card bg="light" className="mx-auto my-3 w-80">
       <Card.Header>{author} said:</Card.Header>
       <Card.Body style={{ display: "flex", flexFlow: "row" }}>
-        <Card.Text>{image}</Card.Text>
+        <Card.Text className="mb-0">{image}</Card.Text>
         <Card.Text
           style={{
             width: "80%",
