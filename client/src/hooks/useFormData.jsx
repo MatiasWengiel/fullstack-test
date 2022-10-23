@@ -1,28 +1,15 @@
-import { useState } from "react";
 import axios from "axios";
 import useAppData from "./useAppData";
 
 export default function useFormData() {
-  const { updateCommentsList } = useAppData();
-  const [commentData, setCommentData] = useState({
-    author: "",
-    commentText: "",
-  });
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    setCommentData({
-      ...commentData,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const { updateCommentsList, setCommentData, state } = useAppData();
 
   const updateDB = () => {
     return axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/comments`,
       {
-        author: commentData.author || "Anonymous User",
-        commentText: commentData.commentText,
+        author: state.commentData.author || "Anonymous User",
+        commentText: state.commentData.commentText,
       },
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
@@ -41,8 +28,8 @@ export default function useFormData() {
         updateCommentsList({
           //Use time as temporary ID, as it will be unique between comments
           _id: currentTime,
-          author: commentData.author || "Anonymous User",
-          commentText: commentData.commentText,
+          author: state.commentData.author || "Anonymous User",
+          commentText: state.commentData.commentText,
           date: currentTime,
         });
         setCommentData({ author: "", commentText: "" });
@@ -50,5 +37,5 @@ export default function useFormData() {
       .catch((error) => console.log(error));
   };
 
-  return { commentData, handleChange, handleSubmit };
+  return { handleSubmit };
 }

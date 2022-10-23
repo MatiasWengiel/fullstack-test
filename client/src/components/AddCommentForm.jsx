@@ -1,8 +1,61 @@
+import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import useAppData from "../hooks/useAppData";
 import useFormData from "../hooks/useFormData";
+import axios from "axios";
 
 export default function AddCommentForm(props) {
-  const { handleChange, commentData, handleSubmit } = useFormData();
+  // const { handleSubmit } = useFormData();
+  const { state, setCommentData, updateCommentsList } = useAppData();
+
+  const [tempComment, setTempComment] = useState({
+    author: "",
+    commentText: "",
+  });
+
+  const handleAuthorChange = async (event) => {
+    event.preventDefault();
+    setTempComment({ ...tempComment, author: event.target.value });
+  };
+  const handleTextChange = (event) => {
+    event.preventDefault();
+    setTempComment({ ...tempComment, commentText: event.target.value });
+    setCommentData(tempComment);
+  };
+
+  const updateDB = () => {
+    return axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/comments`,
+      {
+        author: tempComment.author || "Anonymous User",
+        commentText: tempComment.commentText,
+      },
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    );
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const currentTime = new Date().toString();
+    const form = event.currentTarget;
+    if (form.checkValidity === false) {
+      event.stopPropagation();
+      return;
+    }
+    updateDB()
+      .then(() => {
+        updateCommentsList({
+          //Use time as temporary ID, as it will be unique between comments
+          _id: currentTime,
+          author: tempComment.author || "Anonymous User",
+          commentText: tempComment.commentText,
+          date: currentTime,
+        });
+        setTempComment({ author: "", commentText: "" });
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <h4>Want to join the discussion? Comment below!</h4>
@@ -26,8 +79,8 @@ export default function AddCommentForm(props) {
             className="w-50 ms-3"
             name="author"
             placeholder="What is your name?"
-            value={commentData.author}
-            onChange={handleChange}
+            value={tempComment.author}
+            onChange={handleAuthorChange}
           />
         </Form.Group>
         <Form.Group>
@@ -37,9 +90,9 @@ export default function AddCommentForm(props) {
             rows={4}
             className="mb-3"
             name="commentText"
-            value={commentData.commentText}
+            value={tempComment.commentText}
             placeholder="Write your message here"
-            onChange={handleChange}
+            onChange={handleTextChange}
             required
           />
         </Form.Group>
