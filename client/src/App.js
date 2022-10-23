@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import AddCommentForm from './components/AddCommentForm';
 import NoComment from './components/NoComment';
 import axios from 'axios'
@@ -26,7 +26,9 @@ function App() {
         key={comment._id}
         author={comment.author}
         text={comment.commentText}
-        sent={new Date(comment.date).toString()}
+        sent={new Date(comment.date)}
+        // Adds a random image to act as a temporary "avatar". Must be fetched at this stage, or the browser cache leads to all pictures being the same
+        image={<Image roundedCircle src={`https://loremflickr.com/100/100/cat?random=${comment._id}`} />}
       />
     );
   });
