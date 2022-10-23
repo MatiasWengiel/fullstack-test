@@ -26,7 +26,9 @@ function App() {
         key={comment._id}
         author={comment.author}
         text={comment.commentText}
-        sent={new Date(comment.date).toString()}
+        sent={new Date(comment.date)}
+        // Adds a random image to act as a temporary "avatar"
+        image={<img src={`https://loremflickr.com/100/100/cat?random=${comment._id}`} />}
       />
     );
   });
