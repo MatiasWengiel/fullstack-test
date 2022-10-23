@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import AddCommentForm from './components/AddCommentForm';
 import NoComment from './components/NoComment';
 import CommentsThread from './components/CommentsThread';
@@ -9,20 +9,19 @@ import useAppData from './hooks/useAppData';
 
 function App() {
 
-  const { checkForComments } = useAppData()
-
+  const { checkForComments, state, updateCommentsList } = useAppData()
 
   return (
     <Container>
       <Row>
         <Col>
           {/* Only renders CommentsThread if it has contents */}
-          {checkForComments ? <CommentsThread /> : <NoComment />}
+          {checkForComments ? <CommentsThread comments={state.comments} /> : <NoComment />}
         </Col>
       </Row>
       <Row>
         <Col>
-          <AddCommentForm />
+          <AddCommentForm updateCommentsList={updateCommentsList} />
         </Col>
       </Row>
     </Container>

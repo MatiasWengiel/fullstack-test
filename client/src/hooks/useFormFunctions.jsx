@@ -1,9 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import useAppData from "./useAppData";
 
-export default function useFormData() {
-  const { updateCommentsList } = useAppData();
+export default function useFormFunctions(updateCommentsList) {
   const [commentData, setCommentData] = useState({
     author: "",
     commentText: "",
@@ -11,12 +9,8 @@ export default function useFormData() {
 
   const handleChange = (event) => {
     event.preventDefault();
-    setCommentData({
-      ...commentData,
-      [event.target.name]: event.target.value,
-    });
+    setCommentData({ ...commentData, [event.target.name]: event.target.value });
   };
-
   const updateDB = () => {
     return axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/comments`,
@@ -49,6 +43,5 @@ export default function useFormData() {
       })
       .catch((error) => console.log(error));
   };
-
-  return { commentData, handleChange, handleSubmit };
+  return { handleSubmit, handleChange, commentData };
 }

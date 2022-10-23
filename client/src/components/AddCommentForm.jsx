@@ -1,8 +1,11 @@
 import { Form, Button } from "react-bootstrap";
-import useFormData from "../hooks/useFormData";
+import useFormFunctions from "../hooks/useFormFunctions";
 
 export default function AddCommentForm(props) {
-  const { handleChange, commentData, handleSubmit } = useFormData();
+  const { handleSubmit, handleChange, commentData } = useFormFunctions(
+    props.updateCommentsList
+  );
+
   return (
     <>
       <h4>Want to join the discussion? Comment below!</h4>
