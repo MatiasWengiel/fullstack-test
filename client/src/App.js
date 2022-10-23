@@ -9,9 +9,7 @@ import useAppData from './hooks/useAppData';
 
 function App() {
 
-  const { checkForComments, state, setCommentData, updateCommentsList } = useAppData()
-
-  console.log("in App", state.comments)
+  const { checkForComments, state, updateCommentsList } = useAppData()
 
   return (
     <Container>

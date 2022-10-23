@@ -43,7 +43,6 @@ export default function useAppData() {
 
   //Adds the latest comment from the user without needing another call to the back end.
   const updateCommentsList = (newComment) => {
-    console.log(newComment);
     dispatch({ type: UPDATE_COMMENTS, newComment });
   };
 
