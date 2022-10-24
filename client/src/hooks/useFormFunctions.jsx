@@ -11,6 +11,7 @@ export default function useFormFunctions(updateCommentsList) {
     event.preventDefault();
     setCommentData({ ...commentData, [event.target.name]: event.target.value });
   };
+
   const updateDB = () => {
     return axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/comments`,

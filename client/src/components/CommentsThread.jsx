@@ -3,7 +3,7 @@ import { Container, Image } from "react-bootstrap";
 
 export default function CommentsThread(props) {
   const { comments } = props;
-  console.log(comments);
+
   return (
     <Container>
       {comments.map((comment) => (
